@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CreditWorksModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Vehicle_Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RangeMin" Type="int" Nullable="false" />
+          <Property Name="RangeMax" Type="int" Nullable="false" />
+          <Property Name="CategoryIcon" Type="nvarchar" MaxLength="400" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vehicle_Manufacturer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Manufacturer" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VehicleInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OwnerName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ManufacturerId" Type="int" Nullable="false" />
+          <Property Name="YearOfManufacture" Type="int" Nullable="false" />
+          <Property Name="WeightOfVehicle" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_vehicle_category">
+          <End Role="Vehicle_Category" Type="Self.Vehicle_Category" Multiplicity="1" />
+          <End Role="VehicleInfo" Type="Self.VehicleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle_Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleInfo">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vehicle_manufacturer">
+          <End Role="Vehicle_Manufacturer" Type="Self.Vehicle_Manufacturer" Multiplicity="1" />
+          <End Role="VehicleInfo" Type="Self.VehicleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle_Manufacturer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleInfo">
+              <PropertyRef Name="ManufacturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CreditWorksModelStoreContainer">
+          <EntitySet Name="Vehicle_Category" EntityType="Self.Vehicle_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicle_Manufacturer" EntityType="Self.Vehicle_Manufacturer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleInfo" EntityType="Self.VehicleInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_vehicle_category" Association="Self.fk_vehicle_category">
+            <End Role="Vehicle_Category" EntitySet="Vehicle_Category" />
+            <End Role="VehicleInfo" EntitySet="VehicleInfo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vehicle_manufacturer" Association="Self.fk_vehicle_manufacturer">
+            <End Role="Vehicle_Manufacturer" EntitySet="Vehicle_Manufacturer" />
+            <End Role="VehicleInfo" EntitySet="VehicleInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CreditWorksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Vehicle_Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RangeMin" Type="Int32" Nullable="false" />
+          <Property Name="RangeMax" Type="Int32" Nullable="false" />
+          <Property Name="CategoryIcon" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="VehicleInfo" Relationship="Self.fk_vehicle_category" FromRole="Vehicle_Category" ToRole="VehicleInfo" />
+        </EntityType>
+        <EntityType Name="Vehicle_Manufacturer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Manufacturer" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="VehicleInfo" Relationship="Self.fk_vehicle_manufacturer" FromRole="Vehicle_Manufacturer" ToRole="VehicleInfo" />
+        </EntityType>
+        <EntityType Name="VehicleInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OwnerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ManufacturerId" Type="Int32" Nullable="false" />
+          <Property Name="YearOfManufacture" Type="Int32" Nullable="false" />
+          <Property Name="WeightOfVehicle" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Vehicle_Category" Relationship="Self.fk_vehicle_category" FromRole="VehicleInfo" ToRole="Vehicle_Category" />
+          <NavigationProperty Name="Vehicle_Manufacturer" Relationship="Self.fk_vehicle_manufacturer" FromRole="VehicleInfo" ToRole="Vehicle_Manufacturer" />
+        </EntityType>
+        <Association Name="fk_vehicle_category">
+          <End Role="Vehicle_Category" Type="Self.Vehicle_Category" Multiplicity="1" />
+          <End Role="VehicleInfo" Type="Self.VehicleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle_Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleInfo">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vehicle_manufacturer">
+          <End Role="Vehicle_Manufacturer" Type="Self.Vehicle_Manufacturer" Multiplicity="1" />
+          <End Role="VehicleInfo" Type="Self.VehicleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle_Manufacturer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleInfo">
+              <PropertyRef Name="ManufacturerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CreditWorksEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Vehicle_Category" EntityType="Self.Vehicle_Category" />
+          <EntitySet Name="Vehicle_Manufacturer" EntityType="Self.Vehicle_Manufacturer" />
+          <EntitySet Name="VehicleInfo" EntityType="Self.VehicleInfo" />
+          <AssociationSet Name="fk_vehicle_category" Association="Self.fk_vehicle_category">
+            <End Role="Vehicle_Category" EntitySet="Vehicle_Category" />
+            <End Role="VehicleInfo" EntitySet="VehicleInfo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vehicle_manufacturer" Association="Self.fk_vehicle_manufacturer">
+            <End Role="Vehicle_Manufacturer" EntitySet="Vehicle_Manufacturer" />
+            <End Role="VehicleInfo" EntitySet="VehicleInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CreditWorksModelStoreContainer" CdmEntityContainer="CreditWorksEntities">
+          <EntitySetMapping Name="Vehicle_Category">
+            <EntityTypeMapping TypeName="CreditWorksModel.Vehicle_Category">
+              <MappingFragment StoreEntitySet="Vehicle_Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="RangeMin" ColumnName="RangeMin" />
+                <ScalarProperty Name="RangeMax" ColumnName="RangeMax" />
+                <ScalarProperty Name="CategoryIcon" ColumnName="CategoryIcon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicle_Manufacturer">
+            <EntityTypeMapping TypeName="CreditWorksModel.Vehicle_Manufacturer">
+              <MappingFragment StoreEntitySet="Vehicle_Manufacturer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleInfo">
+            <EntityTypeMapping TypeName="CreditWorksModel.VehicleInfo">
+              <MappingFragment StoreEntitySet="VehicleInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="ManufacturerId" ColumnName="ManufacturerId" />
+                <ScalarProperty Name="YearOfManufacture" ColumnName="YearOfManufacture" />
+                <ScalarProperty Name="WeightOfVehicle" ColumnName="WeightOfVehicle" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

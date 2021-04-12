@@ -1,0 +1,52 @@
+﻿@using CreditWorks.Models;
+
+<h2>Create New Category</h2>
+<form method="post" action="/Category/SubmitForm" id="categoryForm">
+    <span></span>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td class="field-name">CategoryName:</td>
+                <td>
+                    <input  name="CategoryName" required />              
+                </td>
+            </tr>           
+            <tr>
+                <td class="field-name">Min Range:</td>
+                <td colspan="3">
+                    <input type="number" name="RangeMin" required />
+                </td>
+            </tr>
+            <tr>
+                <td class="field-name">Max Range:</td>
+                <td colspan="3">
+                    <input type="number" name="RangeMax" required />
+                </td>
+            </tr>
+            <tr>
+                <td class="field-name">Category Icon</td>
+                <td colspan="3" style="vertical-align:middle;">
+                    <select name="CategoryIcon">
+                        <option value="fa fa-car">&#Xf1b9;</option>
+                        <option value="fa fa-bus">&#Xf207;</option>
+                        <option value="fa fa-truck">&#Xf0d1;</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit" id="submit">Submit</button>
+        <div>
+            <div class="tip-sub"><span  class="label label-primary" style="font-size:14px; margin-top:5px;">Submission was successful.</span></div>
+        </div>
+    </div>
+</form>
+
+<style>
+/*add FontAwesome to the select*/
+select {
+  font-family: 'FontAwesome', 'Second Font name'
+}
+</style>
+

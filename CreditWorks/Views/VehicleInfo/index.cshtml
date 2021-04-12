@@ -1,0 +1,52 @@
+﻿@model IEnumerable<CreditWorks.Models.VehicleInfo>
+
+<h2>Vehicle Information</h2>
+
+<p>
+    @Html.ActionLink("Create New Vehicle Information", "Create")
+</p>
+<table class="table tablesorter" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle_Manufacturer.Manufacturer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearOfManufacture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeightOfVehicle)
+            </th>        
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OwnerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vehicle_Manufacturer.Manufacturer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YearOfManufacture)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WeightOfVehicle)<span>KG  </span>
+            <span class="@Html.DisplayFor(modelItem => item.Vehicle_Category.CategoryIcon)"></span>
+            
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>*@
+    </tr>
+}
+    </tbody>
+</table>
+
+
